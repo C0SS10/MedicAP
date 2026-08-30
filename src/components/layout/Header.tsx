@@ -10,12 +10,12 @@ export function Header() {
         AngelaP
       </a>
       <nav className="flex items-center gap-3 text-sm sm:gap-6">
-        <a href="#destacados" className="hidden hover:opacity-70 sm:inline">
+        <a href="#destacados" className="hidden sm:inline hover:opacity-70 hover:scale-105 transition-all duration-100">
           Catálogo
         </a>
         <button
           aria-label="Iniciar sesión"
-          className="flex min-h-11 min-w-11 items-center justify-center gap-1.5 hover:opacity-70 sm:min-h-0 sm:min-w-0"
+          className="flex min-h-11 min-w-11 items-center justify-center gap-1.5 hover:opacity-70 hover:scale-105 transition-all duration-100 cursor-pointer sm:min-h-0 sm:min-w-0"
         >
           <User size={18} />
           <span className="hidden sm:inline">Iniciar sesión</span>
