@@ -31,7 +31,8 @@ export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
 
   if (path.startsWith("/tablero-admin")) {
-    if (!user) return NextResponse.redirect(new URL("/login", request.url));
+    if (!user)
+      return NextResponse.redirect(new URL("/iniciar-sesion", request.url));
     const { data: profile } = await supabase
       .from("profiles")
       .select("rol")
@@ -43,12 +44,12 @@ export async function middleware(request: NextRequest) {
   }
 
   if (path.startsWith("/cuenta") && !user) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL("/iniciar-sesion", request.url));
   }
 
   return response;
 }
 
 export const config = {
-  matcher: ["/tablero-admin/:path*", "/cuenta/:path*"],
+  matcher: ["/tablero-admin/:path*", "/cuenta/:path*", "/:path*"],
 };

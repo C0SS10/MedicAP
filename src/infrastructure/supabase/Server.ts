@@ -12,9 +12,15 @@ export async function createSupabaseServer() {
           return cookieStore.getAll();
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
-            cookieStore.set(name, value, options),
-          );
+          try {
+            cookiesToSet.forEach(({ name, value, options }) =>
+              cookieStore.set(name, value, options),
+            );
+          } catch {
+            // Se puede ignorar: ocurre cuando setAll() se llama desde un
+            // Server Component. Si tienes middleware.ts refrescando la
+            // sesión en cada request, esto es inofensivo.
+          }
         },
       },
     },
