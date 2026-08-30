@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sistema de inventario y tienda — productos farmacéuticos/estéticos
 
-## Getting Started
+Sistema para digitalizar y centralizar el inventario, las transacciones y la trazabilidad de un negocio pequeño que vende productos como tirzepatida, ácidos y similares. Incluye catálogo público, carrito de compra, solicitudes de compra (sin pasarela de pago) y panel de administración.
 
-First, run the development server:
+## Stack
+
+- **Next.js** (App Router) + **TypeScript**
+- **Tailwind CSS v4**
+- **Supabase** (Postgres + Auth + Storage)
+- **Zustand** (estado de cliente, carrito persistente)
+- **Zod** + **react-hook-form** (validación de formularios)
+- **pnpm**
+- **Vitest** (unitarias) + **Playwright** (E2E)
+  Despliegue: una sola app Next.js en Vercel + Supabase como backend administrado. Sin infraestructura propia que mantener.
+
+## Primeros pasos
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
+cp .env.example .env.local   # completar con las credenciales de Supabase
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Variables de entorno necesarias:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Estructura del proyecto
 
-## Learn More
+```
+src/
+  app/                 # rutas, Server Components, Server Actions
+  domain/              # entidades y reglas de negocio puras
+  services/            # casos de uso
+  infrastructure/
+    supabase/          # cliente Supabase + repositorios
+  store/               # Zustand stores
+  components/          # UI (glassmorphism)
+tests/
+  unit/                # Vitest
+  e2e/                 # Playwright
+```
 
-To learn more about Next.js, take a look at the following resources:
+Ver `CLAUDE.md` para el detalle completo de decisiones de arquitectura y modelo de datos, y `SKILLS.md` para las convenciones de código a seguir.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Roles
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Administrador**: gestiona productos, revisa y aprueba/rechaza solicitudes, registra movimientos de stock, imprime etiquetas de solicitud.
+- **Cliente**: navega el catálogo, arma su carrito, envía solicitudes de compra, sube evidencia de pago.
 
-## Deploy on Vercel
+## Flujo de compra
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. El cliente navega el catálogo y agrega productos al carrito (sin necesidad de cuenta).
+2. Al hacer click en "Pagar", si no está autenticado se le pide login o registro.
+3. Completa el formulario de entrega y elige método de pago: contra-entrega o evidencia de transferencia.
+4. El administrador revisa la solicitud y la aprueba (descuenta stock) o la rechaza.
+5. El administrador marca la solicitud como entregada e imprime la etiqueta (dirección, nombre, tipo de pago, contacto, total, ID de solicitud).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Alcance del MVP
+
+**Incluido**: registro/login, CRUD de productos, carrito, checkout con solicitud, aprobación/rechazo con descuento de stock, impresión de etiqueta, alertas de vencimiento.
+
+**No incluido (por ahora)**: pasarela de pago real, roles adicionales, multi-bodega, reserva de stock, lotes/FEFO.
