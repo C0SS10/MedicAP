@@ -21,6 +21,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="es" className={`${fraunces.variable} ${inter.variable} h-full antialiased`}>
+      <head>
+        <link rel="icon" href="/FavIcon.svg" />
+      </head>
       <body className="min-h-full flex flex-col bg-cream-100 text-ink font-sans">
         {children}
       </body>
