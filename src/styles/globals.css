@@ -29,6 +29,10 @@
   --glass-blur: 16px;
   --glass-shadow: 0 8px 32px rgb(58 53 50 / 10%);
   --glass-radius: 1.25rem;
+
+  /* --- Fuentes --- */
+  --font-sans: var(--font-sans), sans-serif;
+  --font-display: var(--font-display), serif;
 }
 
 @layer utilities {
