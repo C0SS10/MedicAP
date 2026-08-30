@@ -51,5 +51,9 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/tablero-admin/:path*", "/cuenta/:path*", "/:path*"],
+  matcher: [
+    "/tablero-admin/:path*",
+    "/cuenta/:path*",
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+  ],
 };
