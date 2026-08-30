@@ -5,7 +5,7 @@ export const RegistroClienteSchema = z.object({
     .string()
     .min(3, "Mínimo 3 caracteres")
     .max(20, "Máximo 20 caracteres")
-    .regex(/^[a-zA-Z0-9_.-]+$/, "Solo letras, números y guion bajo"),
+    .regex(/^[a-zA-Z0-9_.-]+$/, "Solo letras, números, guion bajo, punto y guion"),
   email: z.email("Correo inválido"),
   password: z.string().min(8, "Mínimo 8 caracteres"),
   telefono: z.string().regex(/^\d{10}$/, "Debe tener 10 dígitos"),
