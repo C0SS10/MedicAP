@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  /* --- Fondo crema (base para los paneles glass) --- */
+  --color-cream-50: #fffdf9;
+  --color-cream-100: #fbf6ee;
+  --color-cream-200: #f5eddd;
+
+  /* --- Paleta pastel (acentos decorativos) --- */
+  --color-blush: #fde2e4;
+  --color-rose: #fad2e1;
+  --color-sage: #e2ece9;
+  --color-sky: #bee1e6;
+  --color-olive: #d1e4a5;
+
+  /* --- Texto --- */
+  --color-ink: #3a3532;
+  --color-ink-muted: #6b655f;
+
+  /* --- Estados sólidos, alto contraste (nunca en glass) --- */
+  --color-danger: #c1502e;
+  --color-warning: #b98900;
+  --color-success: #3f7d58;
+
+  /* --- Glassmorphism --- */
+  --glass-bg: rgb(255 253 249 / 55%);
+  --glass-bg-strong: rgb(255 253 249 / 78%);
+  --glass-border: rgb(255 255 255 / 45%);
+  --glass-blur: 16px;
+  --glass-shadow: 0 8px 32px rgb(58 53 50 / 10%);
+  --glass-radius: 1.25rem;
+}
+
+@layer utilities {
+  .glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--glass-radius);
+    box-shadow: var(--glass-shadow);
+  }
+
+  .glass-panel-strong {
+    background: var(--glass-bg-strong);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--glass-radius);
+    box-shadow: var(--glass-shadow);
+  }
+}
