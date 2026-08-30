@@ -39,14 +39,13 @@ export function UserMenu({ username, rol }: { username: string; rol: string }) {
       </button>
 
       {open && (
-        <div role="menu" className="glass-panel absolute right-0 top-full mt-2 w-44 overflow-hidden p-1">
-          <a href={destino} role="menuitem" className="block rounded-lg px-3 py-2 text-sm hover:bg-cream-100">
+        <div className="glass-panel absolute right-0 top-full mt-2 w-44 overflow-hidden p-1">
+          <a href={destino} className="block rounded-lg px-3 py-2 text-sm hover:bg-cream-100">
             Ir a mi cuenta
           </a>
           <form action={logout}>
             <button
               type="submit"
-              role="menuitem"
               className="w-full rounded-lg px-3 py-2 text-left text-sm text-danger hover:bg-cream-100 cursor-pointer"
             >
               Cerrar sesión
